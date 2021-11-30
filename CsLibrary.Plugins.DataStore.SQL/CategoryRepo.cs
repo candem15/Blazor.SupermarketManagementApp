@@ -15,6 +15,14 @@ namespace CsLibrary.Plugins.DataStore.SQL
         {
             _context = context;
         }
+
+        public void AddCategory(Category category)
+        {
+            category.CategoryId = Guid.NewGuid();
+            _context.Categories.Add(category);
+            _context.SaveChanges();
+        }
+
         public IEnumerable<Category> GetCategories()
         {
             return _context.Categories.ToList();

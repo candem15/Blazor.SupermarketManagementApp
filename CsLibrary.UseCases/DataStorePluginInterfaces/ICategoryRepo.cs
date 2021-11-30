@@ -9,5 +9,6 @@ namespace CsLibrary.UseCases.DataStorePluginInterfaces
     public interface ICategoryRepo
     {
         public IEnumerable<Category> GetCategories();
+        public void AddCategory(Category category);
     }
 }

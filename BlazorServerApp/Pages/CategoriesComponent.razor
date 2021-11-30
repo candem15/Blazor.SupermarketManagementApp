@@ -1,5 +1,6 @@
 @page "/categories"
-@inject CsLibrary.UseCases.IViewCategoriesUseCase ViewCategoriesUseCase
+@inject NavigationManager _navigationManager
+@inject CsLibrary.UseCases.IViewCategoriesUseCase _viewCategoriesUseCase
 
 <h3>Manage Categories</h3>
 
@@ -23,13 +24,20 @@
         </tbody>
     </table>
 }
+<br/>
 
+<button type="button" @onclick="OnClick_AddCategory">Add Category</button>
 @code {
     private List<Category> categories;
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        categories = ViewCategoriesUseCase.Execute().ToList();
+        categories = _viewCategoriesUseCase.Execute().ToList();
+    }
+
+    private void OnClick_AddCategory()
+    {
+        _navigationManager.NavigateTo("/addcategory");
     }
 }

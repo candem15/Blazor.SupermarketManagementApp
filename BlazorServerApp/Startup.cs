@@ -35,6 +35,7 @@ namespace BlazorServerApp
                 opt.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
             services.AddScoped<ICategoryRepo,CategoryRepo>();
             services.AddTransient<IViewCategoriesUseCase,ViewCategoriesUseCase>();
+            services.AddTransient<IAddCategoryUseCase,AddCategoryUseCase>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
