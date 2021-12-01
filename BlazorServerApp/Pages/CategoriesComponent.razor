@@ -1,4 +1,5 @@
 @page "/categories"
+
 @inject NavigationManager _navigationManager
 @inject CsLibrary.UseCases.IViewCategoriesUseCase _viewCategoriesUseCase
 
@@ -6,11 +7,12 @@
 
 @if (categories is not null)
 {
-    <table class = "table">
+    <table class="table">
         <thead>
             <tr>
                 <th>Name</th>
                 <th>Description</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -19,12 +21,13 @@
                 <tr>
                     <td>@category.Name</td>
                     <td>@category.Description</td>
+                    <td><button type="button" @onclick="() => OnClick_UpdateCategory(category)" class="btn btn-link">Update</button></td>
                 </tr>
             }
         </tbody>
     </table>
 }
-<br/>
+<br />
 
 <button type="button" @onclick="OnClick_AddCategory">Add Category</button>
 @code {
@@ -35,9 +38,12 @@
         await base.OnInitializedAsync();
         categories = _viewCategoriesUseCase.Execute().ToList();
     }
-
     private void OnClick_AddCategory()
     {
         _navigationManager.NavigateTo("/addcategory");
+    }
+    private void OnClick_UpdateCategory(Category category)
+    {
+        _navigationManager.NavigateTo($"/updatecategory/{category.CategoryId}");
     }
 }

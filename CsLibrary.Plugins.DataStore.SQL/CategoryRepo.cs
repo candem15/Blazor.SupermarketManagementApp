@@ -27,5 +27,22 @@ namespace CsLibrary.Plugins.DataStore.SQL
         {
             return _context.Categories.ToList();
         }
+
+        public Category GetCategoryById(Guid categoryId)
+        {
+            return _context.Categories.FirstOrDefault(x => x.CategoryId == categoryId);
+        }
+
+        public void UpdateCategory(Category category)
+        {
+            var categoryToUpdate = GetCategoryById(category.CategoryId);
+            if (categoryToUpdate is not null)
+            {
+                categoryToUpdate.Name = category.Name;
+                categoryToUpdate.Description = category.Description;
+                _context.Categories.Update(categoryToUpdate);
+                _context.SaveChanges();
+            }
+        }
     }
 }
