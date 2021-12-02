@@ -12,5 +12,6 @@ namespace CsLibrary.UseCases.DataStorePluginInterfaces
         public void AddCategory(Category category);
         public void UpdateCategory(Category category);
         public Category GetCategoryById(Guid categoryId);
+        public void DeleteCategory(Guid categoryId);
     }
 }

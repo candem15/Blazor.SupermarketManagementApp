@@ -33,11 +33,13 @@ namespace BlazorServerApp
             services.AddSingleton<WeatherForecastService>();
             services.AddDbContext<MarketContext>(opt =>
                 opt.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
+
             services.AddScoped<ICategoryRepo, CategoryRepo>();
             services.AddTransient<IViewCategoriesUseCase, ViewCategoriesUseCase>();
             services.AddTransient<IAddCategoryUseCase, AddCategoryUseCase>();
             services.AddTransient<IUpdateCategoryUseCase, UpdateCategoryUseCase>();
             services.AddTransient<IGetCategoryByIdUseCase, GetCategoryByIdUseCase>();
+            services.AddTransient<IDeleteCategoryUseCase, DeleteCategoryUseCase>();
 
         }
 

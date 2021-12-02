@@ -44,5 +44,15 @@ namespace CsLibrary.Plugins.DataStore.SQL
                 _context.SaveChanges();
             }
         }
+
+        public void DeleteCategory(Guid categoryId)
+        {
+            var categoryToDelete = GetCategoryById(categoryId);
+            if (categoryToDelete is not null)
+            {
+                _context.Categories.Remove(categoryToDelete);
+                _context.SaveChanges();
+            }
+        }
     }
 }
