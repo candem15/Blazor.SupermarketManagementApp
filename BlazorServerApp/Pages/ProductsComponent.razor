@@ -1,0 +1,60 @@
+@page "/products"
+
+@inject NavigationManager _navigationManager
+@inject CsLibrary.UseCases.IViewProductsUseCase _viewProductsUseCase
+@inject CsLibrary.UseCases.IViewCategoriesUseCase _viewCategoriesUseCase
+
+<h3>Products</h3>
+
+@if (products is not null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product Category</th>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in products)
+            {
+                <tr>
+                    <td>@_viewCategoriesUseCase.Execute().SingleOrDefault(x=>x.CategoryId==product.CategoryId).Name</td>
+                    <td>@product.Name</td>
+                    <td>@product.Price</td>
+                    <td>@product.Quantity</td>
+                    <td><button type="button" @onclick="() => OnClick_UpdateProduct(product)" class="btn btn-link">Update</button></td>
+                    <td><button type="button" @onclick="() => OnClick_DeleteCategory(product)" class="btn btn-danger">Delete</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<br />
+
+<button type="button" @onclick="OnClick_AddProduct">Add Product</button>
+@code {
+    private List<Product> products;
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        products = _viewProductsUseCase.Execute().ToList();
+    }
+    private void OnClick_AddProduct()
+    {
+        _navigationManager.NavigateTo("/addproduct");
+    }
+    private void OnClick_UpdateProduct(Product product)
+    {
+        _navigationManager.NavigateTo($"/updateproduct/{product.ProductId}");
+    }
+    private void OnClick_DeleteCategory(Product product)
+    {
+        //_deleteCategoryUseCase.Execute(product.ProductId);
+        _navigationManager.NavigateTo(_navigationManager.Uri, forceLoad:true);
+    }
+}

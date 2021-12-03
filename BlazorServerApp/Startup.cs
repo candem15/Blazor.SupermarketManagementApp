@@ -35,12 +35,15 @@ namespace BlazorServerApp
                 opt.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
 
             services.AddScoped<ICategoryRepo, CategoryRepo>();
+            services.AddScoped<IProductRepo, ProductRepo>();
+
             services.AddTransient<IViewCategoriesUseCase, ViewCategoriesUseCase>();
             services.AddTransient<IAddCategoryUseCase, AddCategoryUseCase>();
+            services.AddTransient<IAddProductUseCase, AddProductUseCase>();
             services.AddTransient<IUpdateCategoryUseCase, UpdateCategoryUseCase>();
             services.AddTransient<IGetCategoryByIdUseCase, GetCategoryByIdUseCase>();
             services.AddTransient<IDeleteCategoryUseCase, DeleteCategoryUseCase>();
-
+            services.AddTransient<IViewProductsUseCase, ViewProductsUseCase>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
