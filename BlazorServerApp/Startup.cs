@@ -48,6 +48,7 @@ namespace BlazorServerApp
             services.AddTransient<IGetProductByIdUseCase, GetProductByIdUseCase>();
             services.AddTransient<IUpdateProductUseCase, UpdateProductUseCase>();
             services.AddTransient<IAddProductUseCase, AddProductUseCase>();
+            services.AddTransient<IDeleteProductUseCase, DeleteProductUseCase>();
 
         }
 

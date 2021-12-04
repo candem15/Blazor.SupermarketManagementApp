@@ -3,6 +3,7 @@
 @inject NavigationManager _navigationManager
 @inject CsLibrary.UseCases.IViewProductsUseCase _viewProductsUseCase
 @inject CsLibrary.UseCases.IViewCategoriesUseCase _viewCategoriesUseCase
+@inject CsLibrary.UseCases.IDeleteProductUseCase _deleteProductUseCase
 
 <h3>Products</h3>
 
@@ -28,7 +29,7 @@
                     <td>@product.Price</td>
                     <td>@product.Quantity</td>
                     <td><button type="button" @onclick="() => OnClick_UpdateProduct(product)" class="btn btn-link">Update</button></td>
-                    <td><button type="button" @onclick="() => OnClick_DeleteCategory(product)" class="btn btn-danger">Delete</button></td>
+                    <td><button type="button" @onclick="() => OnClick_DeleteProduct(product.ProductId)" class="btn btn-danger">Delete</button></td>
                 </tr>
             }
         </tbody>
@@ -52,9 +53,9 @@
     {
         _navigationManager.NavigateTo($"/updateproduct/{product.ProductId}");
     }
-    private void OnClick_DeleteCategory(Product product)
+    private void OnClick_DeleteProduct(Guid productId)
     {
-        //_deleteCategoryUseCase.Execute(product.ProductId);
+        _deleteProductUseCase.Execute(productId);
         _navigationManager.NavigateTo(_navigationManager.Uri, forceLoad:true);
     }
 }

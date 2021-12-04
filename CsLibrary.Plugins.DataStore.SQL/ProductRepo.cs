@@ -46,5 +46,15 @@ namespace CsLibrary.Plugins.DataStore.SQL
                 _context.SaveChanges();
             }
         }
+
+        public void DeleteProduct(Guid productId)
+        {
+            var productToDelete = GetProductById(productId);
+            if(productToDelete is not null)
+            {
+                _context.Products.Remove(productToDelete);
+                _context.SaveChanges();
+            }
+        }
     }
 }

@@ -8,10 +8,10 @@ namespace CsLibrary.UseCases.DataStorePluginInterfaces
 {
     public interface IProductRepo
     {
-         public IEnumerable<Product> GetProducts();
-         public void AddProduct(Product product);
+        public IEnumerable<Product> GetProducts();
+        public void AddProduct(Product product);
         public Product GetProductById(Guid productId);
         public void UpdateProduct(Product product);
-
+        public void DeleteProduct(Guid productId);
     }
 }
