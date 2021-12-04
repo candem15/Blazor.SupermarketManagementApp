@@ -10,5 +10,8 @@ namespace CsLibrary.UseCases.DataStorePluginInterfaces
     {
          public IEnumerable<Product> GetProducts();
          public void AddProduct(Product product);
+        public Product GetProductById(Guid productId);
+        public void UpdateProduct(Product product);
+
     }
 }

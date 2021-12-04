@@ -31,19 +31,24 @@ namespace BlazorServerApp
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+
             services.AddDbContext<MarketContext>(opt =>
                 opt.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
-
+            //Repositories
             services.AddScoped<ICategoryRepo, CategoryRepo>();
             services.AddScoped<IProductRepo, ProductRepo>();
-
+            //Categories
             services.AddTransient<IViewCategoriesUseCase, ViewCategoriesUseCase>();
             services.AddTransient<IAddCategoryUseCase, AddCategoryUseCase>();
-            services.AddTransient<IAddProductUseCase, AddProductUseCase>();
             services.AddTransient<IUpdateCategoryUseCase, UpdateCategoryUseCase>();
             services.AddTransient<IGetCategoryByIdUseCase, GetCategoryByIdUseCase>();
             services.AddTransient<IDeleteCategoryUseCase, DeleteCategoryUseCase>();
+            //Products
             services.AddTransient<IViewProductsUseCase, ViewProductsUseCase>();
+            services.AddTransient<IGetProductByIdUseCase, GetProductByIdUseCase>();
+            services.AddTransient<IUpdateProductUseCase, UpdateProductUseCase>();
+            services.AddTransient<IAddProductUseCase, AddProductUseCase>();
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
