@@ -56,5 +56,10 @@ namespace CsLibrary.Plugins.DataStore.SQL
                 _context.SaveChanges();
             }
         }
+
+        public IEnumerable<Product> GetProductsByCategoryId(Guid categoryId)
+        {
+            return _context.Products.Where(x=>x.CategoryId==categoryId).ToList();
+        }
     }
 }

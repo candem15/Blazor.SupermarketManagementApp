@@ -1,6 +1,6 @@
 @page "/addcategory"
 @inject NavigationManager _navigationManager
-@inject CsLibrary.UseCases.IAddCategoryUseCase _addCategoryUseCase
+@inject IAddCategoryUseCase _addCategoryUseCase
 
 <h3>Add Category</h3>
 
@@ -20,7 +20,7 @@
             <InputText id="description" @bind-Value="category.Description" class="form-control"> </InputText>
         </div>
 
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-success">Save</button>
         <button type="submit" class="btn btn-primary" @onclick="OnCancel">Cancel</button>
     </EditForm>
 }
