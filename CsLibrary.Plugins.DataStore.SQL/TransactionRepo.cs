@@ -48,5 +48,14 @@ namespace CsLibrary.Plugins.DataStore.SQL
             });
             context.SaveChanges();
         }
+
+        public IEnumerable<Transaction> Search(string cashierName, DateTime startDate, DateTime endDate)
+        {
+            if (string.IsNullOrWhiteSpace(cashierName))
+                return context.Transactions.Where(x => x.TimeStamp >= startDate.Date && x.TimeStamp <= endDate.Date.AddDays(1).Date);
+            else
+                return context.Transactions.Where(x => x.CashierName.ToLower() == cashierName.ToLower() && x.TimeStamp >= startDate.Date && x.TimeStamp <= endDate.Date.AddDays(1).Date);
+
+        }
     }
 }
