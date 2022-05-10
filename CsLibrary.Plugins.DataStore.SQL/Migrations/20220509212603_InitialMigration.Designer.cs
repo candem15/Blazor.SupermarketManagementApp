@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CsLibrary.Plugins.DataStore.SQL.Migrations
 {
     [DbContext(typeof(MarketContext))]
-    [Migration("20211127024939_InitDatabase")]
-    partial class InitDatabase
+    [Migration("20220509212603_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -137,8 +137,8 @@ namespace CsLibrary.Plugins.DataStore.SQL.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ProductName")
                         .HasColumnType("nvarchar(max)");
@@ -149,7 +149,8 @@ namespace CsLibrary.Plugins.DataStore.SQL.Migrations
                     b.Property<DateTime>("TimeStamp")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("TransactionId");
+                    b.HasKey("TransactionId")
+                        .HasName("TransactionId");
 
                     b.ToTable("Transactions");
                 });

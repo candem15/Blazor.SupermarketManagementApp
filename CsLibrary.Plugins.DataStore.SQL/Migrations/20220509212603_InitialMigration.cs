@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CsLibrary.Plugins.DataStore.SQL.Migrations
 {
-    public partial class InitDatabase : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,7 +26,7 @@ namespace CsLibrary.Plugins.DataStore.SQL.Migrations
                 {
                     TransactionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TimeStamp = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<double>(type: "float", nullable: false),
                     BeforeQty = table.Column<int>(type: "int", nullable: false),
@@ -35,7 +35,7 @@ namespace CsLibrary.Plugins.DataStore.SQL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Transactions", x => x.TransactionId);
+                    table.PrimaryKey("TransactionId", x => x.TransactionId);
                 });
 
             migrationBuilder.CreateTable(

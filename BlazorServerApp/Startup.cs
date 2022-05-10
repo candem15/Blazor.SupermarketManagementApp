@@ -37,6 +37,7 @@ namespace BlazorServerApp
             //Repositories
             services.AddScoped<ICategoryRepo, CategoryRepo>();
             services.AddScoped<IProductRepo, ProductRepo>();
+            services.AddScoped<ITransactionRepo, TransactionRepo>();
             //Categories
             services.AddTransient<IViewCategoriesUseCase, ViewCategoriesUseCase>();
             services.AddTransient<IAddCategoryUseCase, AddCategoryUseCase>();
@@ -51,7 +52,9 @@ namespace BlazorServerApp
             services.AddTransient<IDeleteProductUseCase, DeleteProductUseCase>();
             services.AddTransient<IViewProductsByCategoryId, ViewProductsByCategoryId>();
             services.AddTransient<ISellProductUseCase, SellProductUseCase>();
-
+            //Transactions
+            services.AddTransient<IRecordTransactionUseCase, RecordTransactionUseCase>();
+            services.AddTransient<IGetTodayTransactionsUseCase, GetTodayTransactionsUseCase>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

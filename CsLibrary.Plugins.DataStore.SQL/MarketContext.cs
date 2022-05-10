@@ -6,21 +6,23 @@ namespace CsLibrary.Plugins.DataStore.SQL
 {
     public class MarketContext : DbContext
     {
-        public MarketContext(DbContextOptions opt ):base(opt)
+        public MarketContext(DbContextOptions opt) : base(opt)
         {
 
         }
-        public DbSet<Category> Categories {get;set;}
-        public DbSet<Product> Products {get;set;}
-        public DbSet<Transaction> Transactions {get;set;}
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Category>()
-                .HasMany<Product>(p=>p.Products)
-                .WithOne(p=>p.Category)
-                .HasForeignKey(p=>p.CategoryId);
-
+                .HasMany<Product>(p => p.Products)
+                .WithOne(p => p.Category)
+                .HasForeignKey(p => p.CategoryId);
+            modelBuilder.Entity<Transaction>()
+                .HasKey(k => k.TransactionId)
+                .HasName("TransactionId");
             //Seed Data for test purpose
             modelBuilder.Entity<Category>().HasData(
                     new Category { CategoryId = new Guid("60d70416-906c-4c1c-8f5e-a0183bf6cada"), Name = "Beverage", Description = "Beverage" },

@@ -6,24 +6,39 @@
     <div class="col-4">
         <SelectProductForSellingComponent OnProductSelected="SelectProduct"> </SelectProductForSellingComponent>
         <br />
-        <SellProductComponent SelectedProduct="selectedProduct" OnProductSold="SellProduct"> </SellProductComponent>
+        <SellProductComponent CashierName="@cashierName" SelectedProduct="selectedProduct" OnProductSold="SellProduct">
+        </SellProductComponent>
     </div>
     <div class="col">
-        XXXX
+        <label for="cashier" >Cashier Name</label>
+        <input class="form-control" type="text" id="cashier" @bind-value="cashierName" placeholder="Please enter cashier name" />
+        <TodayTransactionsComponent @ref="transactionsComponent"> </TodayTransactionsComponent>
     </div>
 </div>
 
 
 @code
 {
+    private TodayTransactionsComponent transactionsComponent;
     private Product selectedProduct;
+    private string cashierName;
 
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        if(firstRender)
+            transactionsComponent.LoadTransactions(cashierName);
+    }
     private void SelectProduct(Product product)
     {
         selectedProduct = product;
     }
     private void SellProduct(Product product)
     {
-
+        transactionsComponent.LoadTransactions(cashierName);
     }
 }

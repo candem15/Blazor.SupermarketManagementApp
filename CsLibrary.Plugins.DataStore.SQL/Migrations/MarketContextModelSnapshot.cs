@@ -135,8 +135,8 @@ namespace CsLibrary.Plugins.DataStore.SQL.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ProductName")
                         .HasColumnType("nvarchar(max)");
@@ -147,7 +147,8 @@ namespace CsLibrary.Plugins.DataStore.SQL.Migrations
                     b.Property<DateTime>("TimeStamp")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("TransactionId");
+                    b.HasKey("TransactionId")
+                        .HasName("TransactionId");
 
                     b.ToTable("Transactions");
                 });
