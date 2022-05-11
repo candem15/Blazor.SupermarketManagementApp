@@ -1,4 +1,6 @@
 @page "/addproduct"
+@attribute [Authorize(Policy = "AdminOnly")]
+
 @inject NavigationManager _navigationManager
 @inject CsLibrary.UseCases.IAddProductUseCase _addProductUseCase
 @inject CsLibrary.UseCases.IViewCategoriesUseCase _viewCategoriesUseCase
@@ -7,13 +9,13 @@
 
 @if (product is not null)
 {
-    <EditForm  Model="product" OnValidSubmit="OnValidSubmit">
+    <EditForm Model="product" OnValidSubmit="OnValidSubmit">
         <DataAnnotationsValidator></DataAnnotationsValidator>
         <ValidationSummary></ValidationSummary>
 
         <div class="form-group">
             <label for="category">Category</label>
-            <select class="form-control" aria-label="Default select example" id="category" @bind="product.CategoryId" >
+            <select class="form-control" aria-label="Default select example" id="category" @bind="product.CategoryId">
                 <option value="" disabled selected>Select your category</option>
                 @foreach (var category in categories)
                 {

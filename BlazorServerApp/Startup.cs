@@ -34,6 +34,13 @@ namespace BlazorServerApp
 
             services.AddDbContext<MarketContext>(opt =>
                 opt.UseSqlServer(Configuration.GetConnectionString("SqlConnection")));
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminOnly", p => p.RequireClaim("Position", "Admin"));
+                options.AddPolicy("CashierOnly", p => p.RequireClaim("Position", "Cashier"));
+            });
+
             //Repositories
             services.AddScoped<ICategoryRepo, CategoryRepo>();
             services.AddScoped<IProductRepo, ProductRepo>();
@@ -75,8 +82,12 @@ namespace BlazorServerApp
 
             app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });

@@ -1,4 +1,5 @@
 @page "/cashier_console"
+@attribute [Authorize(Policy = "CashierOnly")]
 
 <h3>Cashier's Console</h3>
 <br />
@@ -10,8 +11,9 @@
         </SellProductComponent>
     </div>
     <div class="col">
-        <label for="cashier" >Cashier Name</label>
-        <input class="form-control" type="text" id="cashier" @bind-value="cashierName" placeholder="Please enter cashier name" />
+        <label for="cashier">Cashier Name</label>
+        <input class="form-control" type="text" id="cashier" @bind-value="cashierName"
+            placeholder="Please enter cashier name" />
         <TodayTransactionsComponent @ref="transactionsComponent"> </TodayTransactionsComponent>
     </div>
 </div>
@@ -20,17 +22,23 @@
 @code
 {
     private TodayTransactionsComponent transactionsComponent;
+
     private Product selectedProduct;
     private string cashierName;
 
-    protected override void OnInitialized()
+    [CascadingParameter]
+    private Task<AuthenticationState> _authState { get; set; }
+    private AuthenticationState authState;
+
+    protected override async Task OnInitializedAsync()
     {
-        base.OnInitialized();
+        authState = await _authState;
+        cashierName = authState.User.Identity.Name;
     }
     protected override void OnAfterRender(bool firstRender)
     {
         base.OnAfterRender(firstRender);
-        if(firstRender)
+        if (firstRender)
             transactionsComponent.LoadTransactions(cashierName);
     }
     private void SelectProduct(Product product)

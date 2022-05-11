@@ -1,4 +1,5 @@
 @page "/updateproduct/{productId}"
+@attribute [Authorize(Policy = "AdminOnly")]
 
 @inject NavigationManager _navigationManager
 @inject CsLibrary.UseCases.IUpdateProductUseCase _updateProductUseCase

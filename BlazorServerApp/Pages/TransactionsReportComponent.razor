@@ -1,4 +1,6 @@
 @page "/transactions"
+@attribute [Authorize(Policy = "AdminOnly")]
+
 @inject IJSRuntime _jsRuntime
 @inject IGetTransactionsUseCase _getTransactionsUseCase
 
